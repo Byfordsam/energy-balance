@@ -1,0 +1,198 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Energy balance · ClimateBlab classroom</title><link rel="icon" href="data:,"><link rel="stylesheet" href="main.css"><link rel="stylesheet" href="classroom.css"></head><body><div id="text">
+
+  <p class="eyebrow">CLIMATEBLAB · CLASSROOM EDITION</p><h1>Energy balance: the simplest climate model</h1><p class="intro">Explore how sunlight, reflection and the atmosphere affect Earth’s temperature. Follow steps 1–4, then vary the three sliders. The source checkboxes change the animation only.</p>
+
+  <a href='https://nz.linkedin.com/in/gary-ballantyne-b81b4b6'>Gary Ballantyne</a>
+  and <a href='https://nz.linkedin.com/in/martin-clark-07773224'>Martin Clark</a>
+
+  <div class="left_col">
+
+    <span class="firstcharacter">1</span>
+    <button type="button" class="pz_text" aria-controls="sunlight_note" aria-expanded="false">Sunlight</button> streams
+    towards a cold, dark Earth
+    (-273<span class="deg"></span>C <span class="equals"></span>
+    0 K); its energy is completely
+    absorbed. As the Earth warms
+    <button type="button" class="pz_text" aria-controls="blackbody_note" aria-expanded="false">it radiates in the
+    infrared</button>. Eventually the radiated energy matches that
+    received from the Sun:
+    <button type="button" class="pz_text" aria-controls="energybalance_note" aria-expanded="false">energy balance</button>
+    <button type="button" id="params1" class="parameters">Reset</button>.
+
+</div>
+
+  <div hidden class="pz_note" id="sunlight_note">
+
+    The Sun's <a href="https://en.wikipedia.org/wiki/Intensity_(physics)">intensity</a> at the upper atmosphere is <span class="math">S₀ ≈ 1366</span>
+    W/m<sup>2</sup>. Roughly, over the area presented to the Sun, more
+    energy is delivered in one hour than the world uses in one year.
+    (See this <a href="https://en.wikipedia.org/wiki/Solar_energy">wikipedia
+    article</a>.)
+
+  </div>
+
+  <div hidden class="pz_note" id="blackbody_note">
+
+    It acts as a <a href="https://en.wikipedia.org/wiki/Black-body_radiation">black body</a>.  The surface temperature is shown in degrees Celsius
+    and illustrated by a colored ring.
+
+  </div>
+
+  <div hidden class="pz_note" id="energybalance_note">
+
+    The key equation is
+
+    <p class="equation">C dTₛ/dt = (S₀/4)(1 − ρ) − σ(1 − ε/2)Tₛ⁴</p>
+
+    Here <span class="math">Tₛ</span> is the temperature at the Earth's surface, <span class="math">C</span> is the
+    <a href="https://en.wikipedia.org/wiki/Heat_capacity">heat capacity</a>, <span class="math">ρ</span>
+    is the fraction of sunlight that is reflected
+    (<a href="https://en.wikipedia.org/wiki/Albedo">albedo</a> or reflection
+    coefficient), <span class="math">σ</span> is the
+    <a href="https://en.wikipedia.org/wiki/Stefan-Boltzmann_constant">Stefan-Boltzmann constant</a> and <span class="math">ε</span> is the fraction of the
+    radiation emitted from the Earth that is absorbed by the
+    atmosphere.
+
+    Further details can be found in
+    <a href="https://www.climatemodellingprimer.net">A Climate Modelling Primer</a>
+    and this <a href="https://en.wikipedia.org/wiki/Idealized_greenhouse_model">wikipedia article</a>.
+
+  </div>
+
+
+  <div class="right_col">
+
+    <span class="firstcharacter">2</span>
+
+    About 30<span class="percent"></span> of the sunlight is reflected
+    (<span class="math">ρ=0.3</span>) and does not warm the Earth
+    <button type="button" id="params2a" class="parameters">Add reflection</button>.  A new
+    energy balance is struck, and the Earth is inhospitably cold.  To
+    warm the Earth we need the help of the atmosphere—the
+    <a href="https://en.wikipedia.org/wiki/Greenhouse_effect">green house
+    effect</a>.
+
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="simulation-scroll" role="region" aria-label="Interactive energy balance simulation"><div id="container">
+ 
+    <div id="photons"></div>
+    <canvas></canvas>
+    <div id="sliders">
+      <input type="range" id="insolation" aria-label="Incoming sunlight S₀ in watts per square metre" class="sliders" step="1" min="0" max="1600" value="1366">
+      <input type="range" id="albedo" aria-label="Reflected fraction ρ, albedo" class="sliders" step="0.01" min="0" max="1" value="0.3">
+      <input type="range" id="co2" aria-label="Atmospheric infrared absorption ε" class="sliders" step="0.01" min="0" max="1" value="0.78">
+      <div id = "insolation-label" class="canvas-text"><span class="math">S₀</span></div>
+      <div id = "albedo-label" class="canvas-text"><span class="math">ρ</span></div>
+      <div id = "co2-label" class="canvas-text"><span class="math">ε</span></div>
+      <div id = "insolation-value" class="canvas-text"><span class="math">S₀</span></div>
+      <div id = "albedo-value" class="canvas-text"><span class="math">ρ</span></div>
+      <div id = "co2-value" class="canvas-text"><span class="math">ε</span></div>
+    </div>
+    <div id="chart">
+      <div id = "title" class="canvas-text" title="Sunlight averaged
+      over Earth's surface." style="color:grey">Energy Balance</div>
+      <div id = "y-label" class="canvas-text">W/m<sup>2</sup></div>
+      <div id = "x-label-1" class="canvas-text">In</div>
+      <div id = "x-label-2" class="canvas-text">Out</div>
+    </div>
+    <div id="checkboxes" class="canvas-text">
+      <span style="color:grey">Sources:</span><br>
+      <div id="key">
+        <svg width="200" height="100">
+          <rect x="42" y="32" width="10" height="10"
+        style="fill:rgb(255,255,0);stroke-width:1;stroke:rgb(255,255,0)"/>
+	  <rect x="60" y="32" width="10" height="10"
+        style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,255)"/>
+	  <rect x="56" y="56" width="10" height="10"
+        style="fill:rgb(255,0,0);stroke-width:1;stroke:rgb(255,0,0)"/> 
+	  <rect x="122" y="80" width="10" height="10"
+        style="fill:rgb(0,255,0);stroke-width:1;stroke:rgb(0,255,0)"/>
+        </svg>
+      </div>
+      <input type="checkbox" id="sunOn" aria-label="Show sunlight photons" value="showSunPhotons" checked="checked">Sun<br>
+      <input type="checkbox" id="earthOn" aria-label="Show Earth infrared photons" value="showSunPhotons" checked="checked">Earth<br>
+      <input type="checkbox" id="atmosOn" aria-label="Show atmosphere infrared photons" value="showSunPhotons" checked="checked">Atmosphere<br>
+    </div>
+    <div id="shells"></div>
+    <div id="globe"></div>
+    <div id="temperature" role="status" aria-label="Surface temperature in degrees Celsius"></div>
+    <div id="degC" style="color:grey">Earth temp (deg.C)</div>
+    <div></div>
+    
+  </div>
+
+  </div><div class="clear" style="margin-bottom: 30px;"></div>
+
+  <div class="left_col">
+
+    <span class="firstcharacter">3</span>
+    In this simplified model, the 
+    <button type="button" class="pz_text" aria-controls="atmos_note" aria-expanded="false">atmosphere</button> absorbed
+    about 78<span class="percent"></span> of the Earth's radiation
+    (<span class="math">ε=0.78</span>)
+    <button type="button" id="params3" class="parameters">Add atmosphere</button>.  As the
+    atmosphere warms it also radiates—upwards and downwards in equal
+    measure. The additional downwards radiation heats the Earth: the
+    greenhouse effect.
+
+  </div>
+
+  <div hidden class="pz_note" id="atmos_note">
+
+    The atmosphere is considered to be concentrated in a single layer
+    (shown as a concentric red ring, with color that varies with
+    temperature).
+
+  </div>
+
+  <div class="right_col">
+
+    <span class="firstcharacter">4</span> Now represent a stronger greenhouse effect by allowing the atmosphere to
+    <button type="button" class="pz_text" aria-controls="co2_note" aria-expanded="false">absorb more radiation from
+    the Earth </button> (<span class="math">ε=0.82</span>), and therefore to radiate more
+    infrared back towards the surface
+    <button type="button" id="params4" class="parameters">Increase absorption</button>.  In this model, this
+    increases the equilibrium surface temperature by about
+    2.5<span class="deg"></span>C.
+    <button type="button" class="pz_text" aria-controls="try_note" aria-expanded="false">Things to try.</button>
+    <button type="button" id="params4b" class="parameters">Pause animation</button>
+
+    <div hidden class="pz_note" id="co2_note">
+
+      Note that <span class="math">ε=0.82</span> includes a contribution to account for
+      aspects that we do not directly consider, such as the effect of
+      increased water vapour.  (See this
+      <a href="https://en.wikipedia.org/wiki/Idealized_greenhouse_model">wikipedia article</a>.)
+
+    </div>
+
+    <div hidden class="pz_note" id="try_note">
+
+      <ul>
+
+      <li>Toggle the photons from Sun, Earth and atmosphere using the
+      checkboxes in the upper left.
+
+      <li>Turn off the Sun (set <span class="math">S₀=0</span> in the slider), and watch the
+      Earth cool.
+
+      <li>Increase the reflection coefficient (albedo) to <span class="math">ρ=1</span>,
+      and watch the Earth cool.
+
+      <li>Set <span class="math">ε=1</span>, so that <em>all</em> the infrared radiated from
+      the earth is absorbed in the atmosphere. What is the effect on
+      surface temperature?
+
+      </ul>
+
+    </div>
+
+  </div>
+
+  <div class="clear"></div>
+
+  <footer><p>Original simulator by Gary Ballantyne and Martin Clark · ClimateBlab.<br>Copyright © 2014 Haulashore Limited. <a href="LICENSE">MIT licence</a> · <a href="https://github.com/climateblab/energy-balance">Original source</a></p><p>Classroom repair: bundled dependencies, readable equations, accessible controls and pause/resume. Original energy-balance equations and animation retained. This is an idealised, single-layer teaching model, not a climate forecast. Animation time is accelerated; ε is an effective absorption fraction, not a CO₂ concentration.</p></footer>
+</div><script src="vendor/jquery.min.js"></script><script src="vendor/d3.min.js"></script><script src="simulation.js"></script><script src="classroom.js"></script></body></html>

@@ -1,0 +1,1 @@
+document.querySelectorAll('.pz_text').forEach(button => button.addEventListener('click', () => {const note = document.getElementById(button.getAttribute('aria-controls')); note.hidden = !note.hidden; button.setAttribute('aria-expanded', String(!note.hidden));}));
