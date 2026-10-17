@@ -2,9 +2,7 @@
 
   <p class="eyebrow">CLIMATEBLAB · CLASSROOM EDITION</p><h1>Energy balance: the simplest climate model</h1><p class="intro">Explore how sunlight, reflection and the atmosphere affect Earth’s temperature. Follow steps 1–4, then vary the three sliders. The source checkboxes change the animation only.</p>
 
-  <a href='https://nz.linkedin.com/in/gary-ballantyne-b81b4b6'>Gary Ballantyne</a>
-  and <a href='https://nz.linkedin.com/in/martin-clark-07773224'>Martin Clark</a>
-
+  <div class="steps-intro">
   <div class="left_col">
 
     <span class="firstcharacter">1</span>
@@ -74,6 +72,7 @@
 
   </div>
 
+  </div>
   <div class="clear"></div>
 
   <div class="simulation-scroll" role="region" aria-label="Interactive energy balance simulation"><div id="container">
@@ -99,22 +98,10 @@
       <div id = "x-label-2" class="canvas-text">Out</div>
     </div>
     <div id="checkboxes" class="canvas-text">
-      <span style="color:grey">Sources:</span><br>
-      <div id="key">
-        <svg width="200" height="100">
-          <rect x="42" y="32" width="10" height="10"
-        style="fill:rgb(255,255,0);stroke-width:1;stroke:rgb(255,255,0)"/>
-	  <rect x="60" y="32" width="10" height="10"
-        style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,255)"/>
-	  <rect x="56" y="56" width="10" height="10"
-        style="fill:rgb(255,0,0);stroke-width:1;stroke:rgb(255,0,0)"/> 
-	  <rect x="122" y="80" width="10" height="10"
-        style="fill:rgb(0,255,0);stroke-width:1;stroke:rgb(0,255,0)"/>
-        </svg>
-      </div>
-      <input type="checkbox" id="sunOn" aria-label="Show sunlight photons" value="showSunPhotons" checked="checked">Sun<br>
-      <input type="checkbox" id="earthOn" aria-label="Show Earth infrared photons" value="showSunPhotons" checked="checked">Earth<br>
-      <input type="checkbox" id="atmosOn" aria-label="Show atmosphere infrared photons" value="showSunPhotons" checked="checked">Atmosphere<br>
+      <div class="sources-title">Sources:</div>
+      <label class="source-row"><input type="checkbox" id="sunOn" aria-label="Show sunlight photons" checked><span>Sun</span><span class="swatches" aria-hidden="true"><i class="sun-swatch"></i><i class="reflected-swatch"></i></span></label>
+      <label class="source-row"><input type="checkbox" id="earthOn" aria-label="Show Earth infrared photons" checked><span>Earth</span><span class="swatches" aria-hidden="true"><i class="earth-swatch"></i></span></label>
+      <label class="source-row"><input type="checkbox" id="atmosOn" aria-label="Show atmosphere infrared photons" checked><span>Atmosphere</span><span class="swatches" aria-hidden="true"><i class="atmos-swatch"></i></span></label>
     </div>
     <div id="shells"></div>
     <div id="globe"></div>
@@ -194,5 +181,5 @@
 
   <div class="clear"></div>
 
-  <footer><p>Original simulator by Gary Ballantyne and Martin Clark · ClimateBlab.<br>Copyright © 2014 Haulashore Limited. <a href="LICENSE">MIT licence</a> · <a href="https://github.com/climateblab/energy-balance">Original source</a></p><p>Classroom repair: bundled dependencies, readable equations, accessible controls and pause/resume. Original energy-balance equations and animation retained. This is an idealised, single-layer teaching model, not a climate forecast. Animation time is accelerated; ε is an effective absorption fraction, not a CO₂ concentration.</p></footer>
+  <footer><p>Original simulator by <a href="https://nz.linkedin.com/in/gary-ballantyne-b81b4b6">Gary Ballantyne</a> and <a href="https://nz.linkedin.com/in/martin-clark-07773224">Martin Clark</a> · ClimateBlab.<br>Copyright © 2014 Haulashore Limited. <a href="LICENSE">MIT licence</a> · <a href="https://github.com/climateblab/energy-balance">Original source</a></p><p>Classroom repair: bundled dependencies, readable equations, accessible controls and pause/resume. Original energy-balance equations and animation retained. This is an idealised, single-layer teaching model, not a climate forecast. Animation time is accelerated; ε is an effective absorption fraction, not a CO₂ concentration.</p></footer>
 </div><script src="vendor/jquery.min.js"></script><script src="vendor/d3.min.js"></script><script src="simulation.js"></script><script src="classroom.js"></script></body></html>
